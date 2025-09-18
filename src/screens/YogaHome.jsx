@@ -1,18 +1,20 @@
 ﻿// src/screens/YogaHome.jsx
-import React from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import ClassCard from "../components/ClassCard.jsx"
+import { getAllClasses } from "../classes/api/classesApi.js";
+import ClassGrid from "../components/ClassGrid.jsx";
 
 export default function YogaHome() {
-  const featured = [
-    { title: "Morning Flow", level: "Beginner", instructor: "Ana", price: 0 },
-  ]
-
-  const classes = [
-    { title: "Power Yoga", level: "Intermediate", instructor: "Luis", price: 12 },
-    { title: "Yin Relaxation", level: "All Levels", instructor: "Marta", price: 8 },
-    { title: "Sunset Stretch", level: "Beginner", instructor: "Clara", price: 10 },
-  ]
+  const [classes, setClasses] = useState([]);
+  
+    const loadClasses = async () => {
+      const data = await getAllClasses();
+      setClasses(data);
+    };
+  
+    useEffect(() => {
+      loadClasses();
+    }, []);
 
   return (
     <section className="space-y-10">
@@ -25,14 +27,14 @@ export default function YogaHome() {
       </div>
 
       {/* Featured class */}
-      <div>
+      {/* <div>
         <h2 className="text-xl font-bold mb-4 text-leaf">🌟 Featured</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {featured.map((c, i) => (
             <ClassCard key={i} {...c} />
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* All classes */}
       <div>
@@ -45,11 +47,12 @@ export default function YogaHome() {
             Browse all →
           </Link>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {classes.map((c, i) => (
             <ClassCard key={i} {...c} />
           ))}
-        </div>
+        </div> */}
+        <ClassGrid classes={classes} />
       </div>
     </section>
   )

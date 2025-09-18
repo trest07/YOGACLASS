@@ -1,19 +1,16 @@
-// src/instructor/components/InstructorHeader.jsx
-import React from "react"
-
 function getInitials(name) {
-  const n = (name ?? "").trim()
-  if (!n) return "IN" // fallback initials
-  const parts = n.split(/\s+/).filter(Boolean)
-  const first = parts[0]?.[0] ?? ""
-  const second = parts[1]?.[0] ?? ""
-  const initials = (first + second).toUpperCase()
-  return initials || "IN"
+  const n = (name ?? "").trim();
+  if (!n) return "IN"; // fallback initials
+  const parts = n.split(/\s+/).filter(Boolean);
+  const first = parts[0]?.[0] ?? "";
+  const second = parts[1]?.[0] ?? "";
+  const initials = (first + second).toUpperCase();
+  return initials || "IN";
 }
 
 function Avatar({ name, imageUrl, size = 48 }) {
-  const initials = getInitials(name)
-  const dim = `${size}px`
+  const initials = getInitials(name);
+  const dim = `${size}px`;
   return (
     <div
       className="rounded-full bg-leaf/10 text-leaf flex items-center justify-center overflow-hidden"
@@ -27,17 +24,20 @@ function Avatar({ name, imageUrl, size = 48 }) {
           alt={name || "Instructor"}
           className="w-full h-full object-cover"
           onError={(e) => {
-            e.currentTarget.style.display = "none"
+            e.currentTarget.style.display = "none";
             // fallback to initials stays visible
           }}
         />
       ) : (
-        <span className="font-semibold" style={{ fontSize: size > 40 ? 16 : 12 }}>
+        <span
+          className="font-semibold"
+          style={{ fontSize: size > 40 ? 16 : 12 }}
+        >
           {initials}
         </span>
       )}
     </div>
-  )
+  );
 }
 
 export default function InstructorHeader({
@@ -46,8 +46,9 @@ export default function InstructorHeader({
   imageUrl,
   stats = [],
 }) {
-  const safeName = name ?? "Instructor"
-  const safeSubtitle = subtitle ?? "Manage your classes, students, and earnings"
+  const safeName = name ?? "Instructor";
+  const safeSubtitle =
+    subtitle ?? "Manage your classes, students, and earnings";
 
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-4 md:p-6">
@@ -78,5 +79,5 @@ export default function InstructorHeader({
         </div>
       )}
     </div>
-  )
+  );
 }
